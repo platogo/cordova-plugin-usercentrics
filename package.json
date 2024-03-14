@@ -1,0 +1,19 @@
+{
+  "name": "cordova-plugin-usercentrics",
+  "version": "0.0.1",
+  "description": "cordova plugin for usercentrics",
+  "cordova": {
+    "id": "cordova-plugin-usercentrics",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "",
+  "license": "ISC"
+}
