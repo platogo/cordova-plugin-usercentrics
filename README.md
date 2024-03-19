@@ -1,6 +1,6 @@
 # cordova-plugin-usercentrics
 
-This plugin implements usercentric features for cordova.
+This plugin implements usercentrics features for cordova.
 
 ## how to install
 
@@ -14,11 +14,24 @@ cordova plugin add https://github.com/tbd.git
 
 ## usage
 
-take screenshot with jpg and custom quality
+test cool method
 
 ```js
 cordova.plugins.UserCentrics.coolMethod(
   "message",
+  function (success) {
+    console.log(success);
+  },
+  function (error) {
+    console.error(error);
+  }
+);
+```
+
+initialize usercentrics
+
+```js
+cordova.plugins.UserCentrics.initialize(
   function (success) {
     console.log(success);
   },

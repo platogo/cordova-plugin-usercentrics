@@ -16,4 +16,11 @@ public class UserCentrics : CDVPlugin {
 
         self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
     }
+
+    @objc
+    func initialize(_ command: CDVInvokedUrlCommand) {
+        let pluginResult:CDVPluginResult
+        pluginResult = CDVPluginResult.init(status: CDVCommandStatus_OK, messageAs: "initialize")
+        self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+    }
 }
