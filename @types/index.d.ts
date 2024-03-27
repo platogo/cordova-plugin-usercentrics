@@ -1,10 +1,10 @@
 interface UserCentrics {
-  coolMethod: (
-    arg0: string,
+  initialize: (
     success: (message: string) => void,
     error: (message: string) => void
   ) => void;
-  initialize: (
+
+  isReady: (
     success: (message: string) => void,
     error: (message: string) => void
   ) => void;

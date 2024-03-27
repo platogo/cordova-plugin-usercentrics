@@ -14,11 +14,10 @@ cordova plugin add https://github.com/tbd.git
 
 ## usage
 
-test cool method
+initialize usercentrics
 
 ```js
-cordova.plugins.UserCentrics.coolMethod(
-  "message",
+cordova.plugins.UserCentrics.initialize(
   function (success) {
     console.log(success);
   },
@@ -28,10 +27,10 @@ cordova.plugins.UserCentrics.coolMethod(
 );
 ```
 
-initialize usercentrics
+cause banner to show
 
 ```js
-cordova.plugins.UserCentrics.initialize(
+cordova.plugins.UserCentrics.isReady(
   function (success) {
     console.log(success);
   },

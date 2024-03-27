@@ -4,23 +4,16 @@ import Foundation
 @objc(UserCentrics)
 public class UserCentrics : CDVPlugin {
     @objc
-    func coolMethod(_ command: CDVInvokedUrlCommand) {
-        let echo = command.argument(at: 0) as! String?
+    func initialize(_ command: CDVInvokedUrlCommand) {
         let pluginResult:CDVPluginResult
-
-        if echo != nil && echo!.count > 0 {
-            pluginResult = CDVPluginResult.init(status: CDVCommandStatus_OK, messageAs: echo!)
-        } else {
-            pluginResult = CDVPluginResult.init(status: CDVCommandStatus_ERROR)
-        }
-
+        pluginResult = CDVPluginResult.init(status: CDVCommandStatus_OK, messageAs: "initialize")
         self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
     }
 
     @objc
-    func initialize(_ command: CDVInvokedUrlCommand) {
+    func isReady(_ command: CDVInvokedUrlCommand) {
         let pluginResult:CDVPluginResult
-        pluginResult = CDVPluginResult.init(status: CDVCommandStatus_OK, messageAs: "initialize")
+        pluginResult = CDVPluginResult.init(status: CDVCommandStatus_OK, messageAs: "isReady")
         self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
     }
 }
