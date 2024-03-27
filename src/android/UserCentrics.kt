@@ -3,10 +3,12 @@ package com.platogo.cordova.usercentrics
 import com.usercentrics.sdk.Usercentrics
 import com.usercentrics.sdk.UsercentricsBanner
 import com.usercentrics.sdk.UsercentricsOptions
+import com.usercentrics.sdk.UsercentricsServiceConsent
+import com.usercentrics.sdk.models.common.UsercentricsLoggerLevel
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
 import org.json.JSONArray
-
+import org.json.JSONObject
 
 
 class UserCentrics :  CordovaPlugin() {
@@ -34,7 +36,7 @@ class UserCentrics :  CordovaPlugin() {
     }
 
     fun initialize(callbackContext: CallbackContext, args: JSONArray) {
-        this.cordova.getThreadPool().execute {
+        cordova.getThreadPool().execute {
             try {
                 initialize(callbackContext)
             } catch (e: Exception) {
@@ -48,7 +50,6 @@ class UserCentrics :  CordovaPlugin() {
             try {
                 isReady(callbackContext)
             } catch (e: Exception) {
-                e.printStackTrace()
                 callbackContext.error(e.message)
             }
         }
@@ -56,7 +57,7 @@ class UserCentrics :  CordovaPlugin() {
 
     private fun initialize(callbackContext: CallbackContext) {
         val settingsId = this.cordova.getActivity().getResources().getString(getAppResource())
-        val options = UsercentricsOptions(settingsId = settingsId, consentMediation = true)
+        val options = UsercentricsOptions(settingsId = settingsId, consentMediation = true, loggerLevel = UsercentricsLoggerLevel.DEBUG)
         Usercentrics.initialize(this.cordova.getActivity().applicationContext, options)
         callbackContext.success(settingsId)
     }
@@ -70,7 +71,7 @@ class UserCentrics :  CordovaPlugin() {
                 showFirstLayer(callbackContext)
             } else {
                 // Apply consent with status.consents
-                callbackContext.success(JSONArray(status.consents))
+                processConsent(status.consents, callbackContext)
             }
         },{ error ->
             callbackContext.error(error.message)
@@ -84,10 +85,9 @@ class UserCentrics :  CordovaPlugin() {
                 val banner = UsercentricsBanner(context)
                 banner.showFirstLayer { userResponse ->
                     // Handle userResponse
-                    callbackContext.success(JSONArray(userResponse?.consents))
+                    processConsent(userResponse?.consents, callbackContext)
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
                 callbackContext.error(e.message)
             }
         }
@@ -107,12 +107,18 @@ class UserCentrics :  CordovaPlugin() {
             Usercentrics.reset()
             callbackContext.success("sdk reset success")
         } catch (e: Exception) {
-            e.printStackTrace()
             callbackContext.error(e.message)
         }
     }
 
-
+    private fun processConsent(consents: List<UsercentricsServiceConsent>?, callbackContext: CallbackContext) {
+        if (consents.isNullOrEmpty()) {
+            callbackContext.error("no consent received")
+            return
+        }
+        val consentMap = consents.associateBy({ it.templateId }, { mapOf("status" to it.status, "dataProcessor" to it.dataProcessor) })
+        callbackContext.success(JSONObject(consentMap))
+    }
 
 
     private fun getAppResource(): Int {

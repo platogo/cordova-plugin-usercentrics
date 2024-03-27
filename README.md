@@ -40,6 +40,33 @@ cordova.plugins.UserCentrics.isReady(
 );
 ```
 
+clear user session
+
+```js
+cordova.plugins.UserCentrics.clearUserSession(
+  function (success) {
+    console.log(success);
+  },
+  function (error) {
+    console.error(error);
+  }
+);
+
+```
+
+reset the sdk
+
+```js
+cordova.plugins.UserCentrics.sdkReset(
+  function (success) {
+    console.log(success);
+  },
+  function (error) {
+    console.error(error);
+  }
+);
+```
+
 # License
 
 this repo uses the tbd license
