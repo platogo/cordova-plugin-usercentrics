@@ -14,9 +14,9 @@
                 <param name="android-package" value="com.platogo.cordova.usercentrics.UserCentrics" />
             </feature>
         </config-file>
-        <preference name="SETTINGS_ID" />
+        <preference name="RULE_SET_ID" />
         <config-file target="res/values/strings.xml" parent="/*">
-            <string name="SETTINGS_ID">$SETTINGS_ID</string>
+            <string name="RULE_SET_ID">$RULE_SET_ID</string>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml" />
         <source-file src="src/android/UserCentrics.kt" target-dir="java/com/platogo/cordova/usercentrics" />
@@ -30,17 +30,17 @@
         </config-file>
         <source-file src="src/ios/UserCentrics.swift" />
 
-        <preference name="SETTINGS_ID" />
+        <preference name="RULE_SET_ID" />
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
             <array>
                 <dict>
                     <key>CFBundleTypeRole</key>
                     <string>Editor</string>
                     <key>CFBundleURLName</key>
-                    <string>SETTINGS_ID</string>
+                    <string>RULE_SET_ID</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>SETTINGS_ID</string>
+                        <string>RULE_SET_ID</string>
                     </array>
                 </dict>
             </array>

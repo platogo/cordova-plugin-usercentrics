@@ -56,17 +56,16 @@ class UserCentrics :  CordovaPlugin() {
     }
 
     private fun initialize(callbackContext: CallbackContext) {
-        val settingsId = this.cordova.getActivity().getResources().getString(getAppResource())
-        val options = UsercentricsOptions(settingsId = settingsId, consentMediation = true, loggerLevel = UsercentricsLoggerLevel.DEBUG)
+        val ruleSetId = this.cordova.getActivity().getResources().getString(getAppResource())
+        val options = UsercentricsOptions(ruleSetId = ruleSetId, consentMediation = true, loggerLevel = UsercentricsLoggerLevel.DEBUG)
         Usercentrics.initialize(this.cordova.getActivity().applicationContext, options)
-        callbackContext.success(settingsId)
+        callbackContext.success("sdk initialized")
     }
 
     private fun isReady (callbackContext: CallbackContext){
         Usercentrics.isReady({ status ->
             if (status.geolocationRuleset != null && status.geolocationRuleset?.bannerRequiredAtLocation == false) {
-                // banner is not required at this location
-                callbackContext.success("unsupported location")
+                callbackContext.success("banner is not required at this location")
             } else if (status.shouldCollectConsent) {
                 showFirstLayer(callbackContext)
             } else {
@@ -123,6 +122,6 @@ class UserCentrics :  CordovaPlugin() {
 
     private fun getAppResource(): Int {
         return cordova.getActivity().getResources()
-            .getIdentifier("SETTINGS_ID", "string", cordova.getActivity().packageName)
+            .getIdentifier("RULE_SET_ID", "string", cordova.getActivity().packageName)
     }
 }
