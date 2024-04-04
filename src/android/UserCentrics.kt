@@ -1,10 +1,6 @@
 package com.platogo.cordova.usercentrics
 
-import com.usercentrics.sdk.Usercentrics
-import com.usercentrics.sdk.UsercentricsBanner
-import com.usercentrics.sdk.UsercentricsOptions
-import com.usercentrics.sdk.UsercentricsServiceConsent
-import com.usercentrics.sdk.models.common.UsercentricsLoggerLevel
+import com.usercentrics.sdk.*
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
 import org.json.JSONArray
@@ -57,7 +53,7 @@ class UserCentrics :  CordovaPlugin() {
 
     private fun initialize(callbackContext: CallbackContext) {
         val ruleSetId = this.cordova.getActivity().getResources().getString(getAppResource())
-        val options = UsercentricsOptions(ruleSetId = ruleSetId, consentMediation = true, loggerLevel = UsercentricsLoggerLevel.DEBUG)
+        val options = UsercentricsOptions(ruleSetId = ruleSetId, consentMediation = true)
         Usercentrics.initialize(this.cordova.getActivity().applicationContext, options)
         callbackContext.success("sdk initialized")
     }
@@ -80,8 +76,16 @@ class UserCentrics :  CordovaPlugin() {
     private fun showFirstLayer (callbackContext: CallbackContext){
         cordova.activity.runOnUiThread {
             try {
+                val generalStyleSettings = GeneralStyleSettings(
+                    disableSystemBackButton = true,
+                )
+
+                val bannerSettings = BannerSettings(
+                    generalStyleSettings = generalStyleSettings,
+                )
+
                 val context = cordova.context
-                val banner = UsercentricsBanner(context)
+                val banner = UsercentricsBanner(context, bannerSettings)
                 banner.showFirstLayer { userResponse ->
                     // Handle userResponse
                     processConsent(userResponse?.consents, callbackContext)

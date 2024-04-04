@@ -7,7 +7,7 @@ This plugin implements usercentrics features for cordova.
 install it via cordova cli
 
 ```
-cordova plugin add https://github.com/tbd.git
+cordova plugin add https://github.com/platogo/cordova-plugin-usercentrics.git
 ```
 
 **note:** curently supports android and ios only
