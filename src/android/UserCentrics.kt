@@ -4,7 +4,6 @@ import com.usercentrics.sdk.*
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
 import org.json.JSONArray
-import org.json.JSONObject
 
 
 class UserCentrics :  CordovaPlugin() {
@@ -66,7 +65,7 @@ class UserCentrics :  CordovaPlugin() {
                 showFirstLayer(callbackContext)
             } else {
                 // Apply consent with status.consents
-                processConsent(status.consents, callbackContext)
+                processConsent(callbackContext)
             }
         },{ error ->
             callbackContext.error(error.message)
@@ -86,9 +85,9 @@ class UserCentrics :  CordovaPlugin() {
 
                 val context = cordova.context
                 val banner = UsercentricsBanner(context, bannerSettings)
-                banner.showFirstLayer { userResponse ->
+                banner.showFirstLayer { _ ->
                     // Handle userResponse
-                    processConsent(userResponse?.consents, callbackContext)
+                    processConsent(callbackContext)
                 }
             } catch (e: Exception) {
                 callbackContext.error(e.message)
@@ -108,19 +107,14 @@ class UserCentrics :  CordovaPlugin() {
     private fun sdkReset (callbackContext: CallbackContext){
         try {
             Usercentrics.reset()
-            callbackContext.success("sdk reset success")
+            callbackContext.success("sdk reset successfully")
         } catch (e: Exception) {
             callbackContext.error(e.message)
         }
     }
 
-    private fun processConsent(consents: List<UsercentricsServiceConsent>?, callbackContext: CallbackContext) {
-        if (consents.isNullOrEmpty()) {
-            callbackContext.error("no consent received")
-            return
-        }
-        val consentMap = consents.associateBy({ it.templateId }, { mapOf("status" to it.status, "dataProcessor" to it.dataProcessor) })
-        callbackContext.success(JSONObject(consentMap))
+    private fun processConsent(callbackContext: CallbackContext) {
+        callbackContext.success("user consent received")
     }
 
 
