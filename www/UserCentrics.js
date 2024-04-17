@@ -15,3 +15,7 @@ exports.clearUserSession = function (success, error) {
 exports.sdkReset = function (success, error) {
   exec(success, error, "UserCentrics", "sdkReset");
 };
+
+exports.getGoogleConsents = function (success, error) {
+  exec(success, error, "UserCentrics", "getGoogleConsents");
+};

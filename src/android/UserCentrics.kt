@@ -1,9 +1,11 @@
 package com.platogo.cordova.usercentrics
 
 import com.usercentrics.sdk.*
+import com.usercentrics.sdk.models.common.UsercentricsLoggerLevel
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
 import org.json.JSONArray
+import org.json.JSONObject
 
 
 class UserCentrics :  CordovaPlugin() {
@@ -24,6 +26,10 @@ class UserCentrics :  CordovaPlugin() {
             }
             "sdkReset" -> {
                 sdkReset(callbackContext)
+                return true
+            }
+            "getGoogleConsents" -> {
+                getGoogleConsents(callbackContext)
                 return true
             }
             else -> return false
@@ -52,7 +58,7 @@ class UserCentrics :  CordovaPlugin() {
 
     private fun initialize(callbackContext: CallbackContext) {
         val ruleSetId = this.cordova.getActivity().getResources().getString(getAppResource())
-        val options = UsercentricsOptions(ruleSetId = ruleSetId, consentMediation = true)
+        val options = UsercentricsOptions(ruleSetId = ruleSetId, consentMediation = true, loggerLevel = UsercentricsLoggerLevel.DEBUG)
         Usercentrics.initialize(this.cordova.getActivity().applicationContext, options)
         callbackContext.success("sdk initialized")
     }
@@ -108,6 +114,39 @@ class UserCentrics :  CordovaPlugin() {
         try {
             Usercentrics.reset()
             callbackContext.success("sdk reset successfully")
+        } catch (e: Exception) {
+            callbackContext.error(e.message)
+        }
+    }
+
+    private fun getGoogleConsents (callbackContext: CallbackContext){
+        try {
+            Usercentrics.instance.getTCFData { data ->
+                val purposes = data.purposes
+                val vendorGoogle = data.vendors.find { vendor -> vendor.id == 755 }
+
+                val purpose1 = purposes.find { purpose -> purpose.id == 1 }
+                val purpose3 = purposes.find { purpose -> purpose.id == 3 }
+                val purpose4 = purposes.find { purpose -> purpose.id == 4 }
+                val purpose7 = purposes.find { purpose -> purpose.id == 7 }
+                val purpose9 = purposes.find { purpose -> purpose.id == 9 }
+                val purpose10 = purposes.find { purpose -> purpose.id == 10 }
+
+                val adStorage = purpose1?.consent == true && vendorGoogle?.consent == true
+                val adUserData = purpose1?.consent == true &&  (purpose7?.consent == true || purpose7?.legitimateInterestConsent == true) && vendorGoogle?.consent == true
+                val adPersonalization = purpose3?.consent == true && purpose4?.consent == true && vendorGoogle?.legitimateInterestConsent == true
+                val analyticsStorage = (purpose9?.consent == true || purpose9?.legitimateInterestConsent == true) && (purpose10?.consent == true || purpose10?.legitimateInterestConsent == true) && vendorGoogle?.legitimateInterestConsent == true
+
+                val consentMap = mapOf(
+                    "adStorage" to adStorage,
+                    "adUserData" to adUserData,
+                    "adPersonalization" to adPersonalization,
+                    "analyticsStorage" to analyticsStorage
+                )
+
+                callbackContext.success(JSONObject(consentMap))
+
+            }
         } catch (e: Exception) {
             callbackContext.error(e.message)
         }

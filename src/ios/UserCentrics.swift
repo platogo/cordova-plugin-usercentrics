@@ -30,4 +30,11 @@ public class UserCentrics : CDVPlugin {
         pluginResult = CDVPluginResult.init(status: CDVCommandStatus_OK, messageAs: "sdkReset")
         self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
     }
+
+    @objc
+    func getGoogleConsents(_ command: CDVInvokedUrlCommand) {
+        let pluginResult:CDVPluginResult
+        pluginResult = CDVPluginResult.init(status: CDVCommandStatus_OK, messageAs: "getGoogleConsents")
+        self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+    }
 }
