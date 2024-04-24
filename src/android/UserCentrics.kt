@@ -70,8 +70,7 @@ class UserCentrics :  CordovaPlugin() {
             } else if (status.shouldCollectConsent) {
                 showFirstLayer(callbackContext)
             } else {
-                // Apply consent with status.consents
-                processConsent(callbackContext)
+                getGoogleConsents(callbackContext)
             }
         },{ error ->
             callbackContext.error(error.message)
@@ -92,8 +91,7 @@ class UserCentrics :  CordovaPlugin() {
                 val context = cordova.context
                 val banner = UsercentricsBanner(context, bannerSettings)
                 banner.showFirstLayer { _ ->
-                    // Handle userResponse
-                    processConsent(callbackContext)
+                    getGoogleConsents(callbackContext)
                 }
             } catch (e: Exception) {
                 callbackContext.error(e.message)
@@ -138,10 +136,10 @@ class UserCentrics :  CordovaPlugin() {
                 val analyticsStorage = (purpose9?.consent == true || purpose9?.legitimateInterestConsent == true) && (purpose10?.consent == true || purpose10?.legitimateInterestConsent == true) && vendorGoogle?.legitimateInterestConsent == true
 
                 val consentMap = mapOf(
-                    "adStorage" to adStorage,
-                    "adUserData" to adUserData,
-                    "adPersonalization" to adPersonalization,
-                    "analyticsStorage" to analyticsStorage
+                    "ad_storage" to adStorage,
+                    "ad_user_data" to adUserData,
+                    "ad_personalization" to adPersonalization,
+                    "analytics_storage" to analyticsStorage
                 )
 
                 callbackContext.success(JSONObject(consentMap))
@@ -151,11 +149,6 @@ class UserCentrics :  CordovaPlugin() {
             callbackContext.error(e.message)
         }
     }
-
-    private fun processConsent(callbackContext: CallbackContext) {
-        callbackContext.success("user consent received")
-    }
-
 
     private fun getAppResource(): Int {
         return cordova.getActivity().getResources()

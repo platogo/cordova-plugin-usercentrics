@@ -4,7 +4,7 @@ interface UserCentrics {
     error: (message: string) => void
   ) => void;
   isReady: (
-    success: (message: string) => void,
+    success: (message: IGoogleConsents | string) => void,
     error: (message: string) => void
   ) => void;
   clearUserSession: (
@@ -22,10 +22,10 @@ interface UserCentrics {
 }
 
 interface IGoogleConsents {
-  adStorage: Boolean;
-  adUserData: Boolean;
-  adPersonalization: Boolean;
-  analyticsStorage: Boolean;
+  ad_storage: Boolean;
+  ad_user_data: Boolean;
+  ad_personalization: Boolean;
+  analytics_storage: Boolean;
 }
 
 interface CordovaPlugins {
