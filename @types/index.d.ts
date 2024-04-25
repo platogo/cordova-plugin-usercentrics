@@ -4,7 +4,7 @@ interface UserCentrics {
     error: (message: string) => void
   ) => void;
   isReady: (
-    success: (message: IGoogleConsents | string) => void,
+    success: (response: IGoogleConsents | string) => void,
     error: (message: string) => void
   ) => void;
   clearUserSession: (
