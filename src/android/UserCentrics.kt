@@ -1,7 +1,6 @@
 package com.platogo.cordova.usercentrics
 
 import com.usercentrics.sdk.*
-import com.usercentrics.sdk.models.common.UsercentricsLoggerLevel
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
 import org.json.JSONArray
@@ -58,7 +57,7 @@ class UserCentrics :  CordovaPlugin() {
 
     private fun initialize(callbackContext: CallbackContext) {
         val ruleSetId = this.cordova.getActivity().getResources().getString(getAppResource())
-        val options = UsercentricsOptions(ruleSetId = ruleSetId, consentMediation = true, loggerLevel = UsercentricsLoggerLevel.DEBUG)
+        val options = UsercentricsOptions(ruleSetId = ruleSetId, consentMediation = true)
         Usercentrics.initialize(this.cordova.getActivity().applicationContext, options)
         callbackContext.success("sdk initialized")
     }
