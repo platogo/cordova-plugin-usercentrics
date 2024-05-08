@@ -67,6 +67,19 @@ cordova.plugins.UserCentrics.sdkReset(
 );
 ```
 
+get google consents
+
+```js
+cordova.plugins.UserCentrics.getGoogleConsents(
+  function (success) {
+    console.log(success);
+  },
+  function (error) {
+    console.error(error);
+  }
+);
+```
+
 # License
 
 this repo uses the tbd license

@@ -122,6 +122,10 @@ class UserCentrics :  CordovaPlugin() {
                 val purposes = data.purposes
                 val vendorGoogle = data.vendors.find { vendor -> vendor.id == 755 }
 
+                // https://docs.usercentrics.com/cmp_in_app_sdk/latest/api/usercentrics-core/#gettcfdata
+                // https://developers.google.com/tag-platform/security/guides/implement-TCF-strings#tag_behavior
+                // https://iabeurope.eu/iab-europe-transparency-consent-framework-policies/#headline-24-18959
+
                 val purpose1 = purposes.find { purpose -> purpose.id == 1 }
                 val purpose3 = purposes.find { purpose -> purpose.id == 3 }
                 val purpose4 = purposes.find { purpose -> purpose.id == 4 }
@@ -130,9 +134,9 @@ class UserCentrics :  CordovaPlugin() {
                 val purpose10 = purposes.find { purpose -> purpose.id == 10 }
 
                 val adStorage = purpose1?.consent == true && vendorGoogle?.consent == true
-                val adUserData = purpose1?.consent == true &&  (purpose7?.consent == true || purpose7?.legitimateInterestConsent == true) && vendorGoogle?.consent == true
-                val adPersonalization = purpose3?.consent == true && purpose4?.consent == true && vendorGoogle?.legitimateInterestConsent == true
-                val analyticsStorage = (purpose9?.consent == true || purpose9?.legitimateInterestConsent == true) && (purpose10?.consent == true || purpose10?.legitimateInterestConsent == true) && vendorGoogle?.legitimateInterestConsent == true
+                val adUserData = adStorage && (purpose7?.consent == true || purpose7?.legitimateInterestConsent == true)
+                val adPersonalization = purpose3?.consent == true && purpose4?.consent == true && vendorGoogle?.consent == true
+                val analyticsStorage = (purpose9?.consent == true || purpose9?.legitimateInterestConsent == true) && (purpose10?.consent == true || purpose10?.legitimateInterestConsent == true) && (vendorGoogle?.legitimateInterestConsent == true || vendorGoogle?.consent == true)
 
                 val consentMap = mapOf(
                     "ad_storage" to adStorage,
