@@ -14,6 +14,10 @@
     "cordova-android",
     "cordova-ios"
   ],
-  "author": "",
+  "authors": [
+    "Majeed Suleiman <majeed@platogo.com>",
+    "Tomislav Markanovic <tomislav@platogo.com>",
+    "Daniils Petrovs <daniils@platogo.com>"
+  ],
   "license": "ISC"
 }
