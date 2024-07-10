@@ -23,10 +23,6 @@ class UserCentrics :  CordovaPlugin() {
                 clearUserSession(callbackContext)
                 return true
             }
-            "sdkReset" -> {
-                sdkReset(callbackContext)
-                return true
-            }
             "getGoogleConsents" -> {
                 getGoogleConsents(callbackContext)
                 return true
@@ -104,16 +100,6 @@ class UserCentrics :  CordovaPlugin() {
         }, { error ->
             callbackContext.error(error.message)
         })
-    }
-
-
-    private fun sdkReset (callbackContext: CallbackContext){
-        try {
-            Usercentrics.reset()
-            callbackContext.success("sdk reset successfully")
-        } catch (e: Exception) {
-            callbackContext.error(e.message)
-        }
     }
 
     private fun getGoogleConsents (callbackContext: CallbackContext){

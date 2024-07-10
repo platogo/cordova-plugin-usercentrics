@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0"
     }
 }
 
@@ -23,5 +23,5 @@ repositories {
 
 dependencies {
     // Usercentrics
-    implementation "com.usercentrics.sdk:usercentrics-ui:2.13.2"
+    implementation "com.usercentrics.sdk:usercentrics-ui:2.15.2"
 }

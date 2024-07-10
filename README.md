@@ -1,16 +1,16 @@
 # cordova-plugin-usercentrics
 
-This plugin implements usercentrics features for cordova.
+This plugin implements UserCentrics SDK features for Cordova applications.
 
 ## how to install
 
-install it via cordova cli
+Install it via the Cordova CLI.
 
-```
+```sh
 cordova plugin add https://github.com/platogo/cordova-plugin-usercentrics.git
 ```
 
-**note:** curently supports android and ios only
+**note:** currently supports only Android
 
 ## usage
 
@@ -27,7 +27,7 @@ cordova.plugins.UserCentrics.initialize(
 );
 ```
 
-cause banner to show
+cause consent banner to show
 
 ```js
 cordova.plugins.UserCentrics.isReady(
@@ -52,19 +52,6 @@ cordova.plugins.UserCentrics.clearUserSession(
   }
 );
 
-```
-
-reset the sdk
-
-```js
-cordova.plugins.UserCentrics.sdkReset(
-  function (success) {
-    console.log(success);
-  },
-  function (error) {
-    console.error(error);
-  }
-);
 ```
 
 get google consents
