@@ -69,4 +69,4 @@ cordova.plugins.UserCentrics.getGoogleConsents(
 
 # License
 
-this repo uses the tbd license
+this repo uses the ISC license
