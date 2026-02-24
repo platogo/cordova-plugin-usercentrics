@@ -22,5 +22,5 @@ repositories {
 }
 
 dependencies {
-    implementation "com.usercentrics.sdk:usercentrics-ui:2.17.0"
+    implementation "com.usercentrics.sdk:usercentrics-ui:2.24.4"
 }
