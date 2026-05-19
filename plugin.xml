@@ -15,7 +15,8 @@
             </feature>
         </config-file>
         <preference name="RULE_SET_ID" />
-        <config-file target="res/values/strings.xml" parent="/*">
+        <!-- cordova-android 15+ uses app/src/main/res/ instead of res/ -->
+        <config-file target="app/src/main/res/values/cdv_strings.xml" parent="/*">
             <string name="RULE_SET_ID">$RULE_SET_ID</string>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml" />
