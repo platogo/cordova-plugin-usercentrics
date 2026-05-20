@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-usercentrics" version="0.0.1"
+<plugin id="cordova-plugin-usercentrics" version="0.0.2"
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>UserCentrics Cordova Plugin</name>
@@ -15,7 +15,6 @@
             </feature>
         </config-file>
         <preference name="RULE_SET_ID" />
-        <!-- cordova-android 15+ uses app/src/main/res/ instead of res/ -->
         <config-file target="app/src/main/res/values/cdv_strings.xml" parent="/*">
             <string name="RULE_SET_ID">$RULE_SET_ID</string>
         </config-file>
