@@ -1,4 +1,7 @@
 # Change Log
+## [0.0.3]
+### Added
+- Add support for iOS
 
 ## [0.0.2]
 ### Fixed
