@@ -10,7 +10,6 @@ Install it via the Cordova CLI.
 cordova plugin add https://github.com/platogo/cordova-plugin-usercentrics.git
 ```
 
-**note:** currently supports only Android
 
 ## usage
 
